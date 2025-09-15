@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>User Dashboard</h2>
+
+<h3>Available Levels</h3>
+{% for level in levels %}
+  <p>{{ level.question }}</p>
+  <a href="{{ url_for('level_view', level_id=level.id) }}">View / Answer</a>
+{% endfor %}
+</ul>
+{% endblock %}

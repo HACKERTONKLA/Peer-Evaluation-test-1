@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Level {{ level.id }}: {{ level.question }}</h2>
+<p>Golden Answer: {{ level.golden_answer if current_user.role=='admin' else 'Hidden' }}</p>
+
+<h3>Submit Answer (Cost: 1 coin)</h3>
+<form method="post">
+  <input type="text" name="answer" placeholder="Your answer" required>
+  <button type="submit">Submit</button>
+</form>
+
+<h3>Answers</h3>
+<ul>
+  {% for ans in answers %}
+    <li>
+      {{ ans.content }} - by User {{ ans.user_id }} | Status: {{ ans.status }}
+      {% if current_user.role=='admin' or (current_user.role=='user' and current_user.id!=ans.user_id) %}
+        <a href="{{ url_for('approve', answer_id=ans.id) }}">Approve (+1 coin)</a>
+        <a href="{{ url_for('reject', answer_id=ans.id) }}">Reject</a>
+      {% endif %}
+    </li>
+  {% endfor %}
+</ul>
+
+<a href="{{ url_for('dashboard') }}">Back to Dashboard</a>
+{% endblock %}

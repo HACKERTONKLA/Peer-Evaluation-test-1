@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Admin Dashboard</h2>
+
+<h3>Create Level</h3>
+<form method="post" action="{{ url_for('create_level') }}">
+  Question: <input type="text" name="question" required>
+  Golden Answer: <input type="text" name="golden_answer" required>
+  <button type="submit">Create</button>
+</form>
+
+<h3>Levels</h3>
+<ul>
+  {% for level in levels %}
+    <li>
+      [{{ level.id }}] {{ level.question }} | Golden: {{ level.golden_answer }}
+      <form method="post" action="{{ url_for('edit_level', level_id=level.id) }}" style="display:inline;">
+        <input type="text" name="question" placeholder="New question" required>
+        <input type="text" name="golden_answer" placeholder="New golden" required>
+        <button type="submit">Edit</button>
+      </form>
+      <a href="{{ url_for('delete_level', level_id=level.id) }}">Delete</a>
+    </li>
+  {% endfor %}
+</ul>
+
+<h3>Manage Users</h3>
+<ul>
+  {% for user in users %}
+    <li>
+      {{ user.username }} | Coin: {{ user.coin }}
+      <form method="post" action="{{ url_for('update_coin', user_id=user.id) }}" style="display:inline;">
+        <input type="number" name="coin" placeholder="+/- coin" required>
+        <button type="submit">Update Coin</button>
+      </form>
+    </li>
+  {% endfor %}
+</ul>
+{% endblock %}

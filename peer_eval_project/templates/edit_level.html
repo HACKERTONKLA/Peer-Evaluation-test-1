@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Edit Level{% endblock %}
+{% block content %}
+<h2>Edit Level</h2>
+<form method="post">
+  {{ form.hidden_tag() }}
+  <div class="mb-3">
+    {{ form.question.label }} 
+    {{ form.question(class="form-control") }}
+  </div>
+  <div class="mb-3">
+    {{ form.golden_answer.label }} 
+    {{ form.golden_answer(class="form-control") }}
+  </div>
+  {{ form.submit(class="btn btn-warning") }}
+</form>
+{% endblock %}
